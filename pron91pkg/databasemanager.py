@@ -91,7 +91,32 @@ class Databasemanager:
 
         return
 
+    def getPronToDownload(self):
+        cursor = self.c.execute("SELECT * from Pron WHERE downloadStatus=0 LIMIT 1")
+        rows = cursor.fetchall()
+
+        size = len(rows)
+
+        if size > 0:
+
+            for row in rows:
+                targetURL = row[5]
+                viewkey = row[1]
+
+            result = {
+                "viewkey":viewkey,
+                "targetURL":targetURL
+            }
+        else:
+            result = None
+        return result
+
+
     def updatePronDownloadStatus(self,viewkey,status):
+        pronData = [status,viewkey]
+
+        self.c.execute("UPDATE Pron set downloadStatus=? where viewkey=? " , pronData)
+        self.conn.commit()
 
         return
 
@@ -117,6 +142,10 @@ class Databasemanager:
 
         self.conn.commit()
         return
+
+
+
+
 
     def updatePageIndex(self , index):
 

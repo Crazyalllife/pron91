@@ -4,8 +4,8 @@ __author__ = 'Liangmingli'
 import os
 
 
-##Linux in bytes
-MaxFreeSize = 500
+##Linux in bytes预留500MB空间给服务器
+MaxFreeSize = 1002400*500
 
 
 def getCapacity():
@@ -16,6 +16,7 @@ def getCapacity():
 def getAvaiableSize():
     disk = os.statvfs("/")
     available = disk.f_bsize * disk.f_bavail
+    available = available - MaxFreeSize
     return available
 
 def getUsedSize():

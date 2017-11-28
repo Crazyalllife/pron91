@@ -15,7 +15,7 @@ from pron91pkg.disk import convertToMB
 http 的基本功能
 """
 
-
+BaseDownloadPath = "video/"
 
 def prepareip():
 
@@ -212,10 +212,19 @@ def downloadVideo(url, file_name):
     下载文件夹
     """
 
+    targetPath = BaseDownloadPath
+
     try:
-        file = open(file_name, 'r')
+        os.makedirs(targetPath,0o0755);
+    except FileExistsError:
+        print("下载目录存在")
+
+    targetPath = targetPath + file_name
+
+    try:
+        file = open(targetPath, 'r')
         file.close()
-        os.remove(file_name)
+        os.remove(targetPath)
     except FileNotFoundError:
         print("")
 
@@ -226,16 +235,18 @@ def downloadVideo(url, file_name):
 
     fileSize = int(response.headers['content-length'])
     isHaveSpace = isDiskHasSpace(byteValue=fileSize)
-    print(isHaveSpace)
-    print(convertToMB(value=fileSize))
+
+    print(str(convertToMB(value=fileSize)) + "MB")
     print("-------------")
 
     if isHaveSpace:
-        with open(file_name, 'wb') as out_file:
+        with open(targetPath, 'wb') as out_file:
             shutil.copyfileobj(response.raw, out_file)
             del response
     else:
+
         del response
+    return isHaveSpace
 
 def __escape_file_name_str(file_name):
     """
