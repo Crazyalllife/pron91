@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
-from pron91pkg import httputil
+
 from pron91pkg.pron91 import Pron91
 from pron91pkg.databasemanager import Databasemanager
 import time
@@ -8,7 +8,7 @@ from datetime import datetime
 
 
 SLEEP_per_30_min = 10000 * 30
-SLEEP_per_page = 30
+SLEEP_per_page = 10
 initURL = "http://91porn.com/v.php?next=watch&page=4089"
 
 if __name__ == '__main__':
