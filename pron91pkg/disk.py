@@ -2,7 +2,7 @@
 # -*- encoding: utf-8 -*-
 __author__ = 'Liangmingli'
 import os
-from pron91pkg import httputil
+
 
 ##Linux in bytes
 MaxFreeSize = 500
