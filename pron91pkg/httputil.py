@@ -6,6 +6,8 @@ from bs4 import BeautifulSoup
 import requests
 import shutil
 import os
+from pron91pkg.disk import isDiskHasSpace
+from pron91pkg.disk import convertToMB
 
 
 
@@ -220,10 +222,20 @@ def downloadVideo(url, file_name):
 
     response = requests.get(url, stream=True)
 
-    with open(file_name, 'wb') as out_file:
-        shutil.copyfileobj(response.raw, out_file)
-        del response
 
+
+    fileSize = int(response.headers['content-length'])
+    isHaveSpace = isDiskHasSpace(byteValue=fileSize)
+    print(isHaveSpace)
+    print(convertToMB(value=fileSize))
+    print("-------------")
+
+    if isHaveSpace:
+        with open(file_name, 'wb') as out_file:
+            shutil.copyfileobj(response.raw, out_file)
+            del response
+    else:
+        del response
 
 def __escape_file_name_str(file_name):
     """
