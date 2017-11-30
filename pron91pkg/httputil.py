@@ -1,14 +1,13 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 import urllib.request
-import random
 from bs4 import BeautifulSoup
 import requests
 import shutil
 import os
 from pron91pkg.disk import isDiskHasSpace
 from pron91pkg.disk import convertToMB
-
+from pron91pkg.FakeHeader import FakeHeader
 
 
 """
@@ -16,16 +15,6 @@ http 的基本功能
 """
 
 BaseDownloadPath = "video/"
-
-def prepareip():
-
-    """
-    生成一个随机的IP
-    :return:
-    """
-    randIP = str(random.randint(0, 255)) + "." + str(random.randint(0,255)) + "." + str(random.randint(0,255)) + "." + str(random.randint(0,255))
-
-    return randIP
 
 
 def convertURL(url):
@@ -56,24 +45,10 @@ def fetchContent(url):
     :param url:
     :return:
     """
-    randIP = prepareip()
 
-    print(randIP)
+    fakerHeader = FakeHeader()
 
-    request_headers = {
-        "Accept-Language": "zh-CN,zh;q=0.8,en-US;q=0.6,en;q=0.4",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "X-Forwarded-For": randIP}
-
-    # request_headers = {
-    #     "Accept-Language": "zh-CN,zh;q=0.8,en-US;q=0.6,en;q=0.4",
-    #     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/537.13 (KHTML, like Gecko) Chrome/24.0.1290.1 Safari/537.13",
-    #     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"}
-
-
-
-
+    request_headers = fakerHeader.buildFakeHeader()
     print(url)
     request = urllib.request.Request(url,data=None,headers=request_headers)
     response = urllib.request.urlopen(request)
