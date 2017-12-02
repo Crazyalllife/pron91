@@ -5,13 +5,32 @@ from pron91pkg.pron91 import Pron91
 from pron91pkg.databasemanager import Databasemanager
 import time
 from datetime import datetime
-
+import traceback
+import sys, os
+from time import gmtime, strftime
 
 SLEEP_per_30_min = 10000 * 30
 SLEEP_per_page = 10
 initURL = "http://91porn.com/v.php?next=watch&page=4089"
 
 if __name__ == '__main__':
+
+    try:
+        logFilePath = generateLogPath()
+        #This line opens a log file
+        log = open(logFilePath, "w")
+
+        main()
+
+
+
+    except Exception:
+        traceback.print_exc(file=log)
+
+
+
+
+def main():
     pron = Pron91();
 
     # pron.fetch_home_page()
@@ -99,3 +118,16 @@ if __name__ == '__main__':
     #end while
 
     print("End")
+
+def generateLogPath():
+
+    pathName = os.path.dirname(sys.argv[0])
+
+    strTime = trftime("%Y-%m-%d %H时%M分:%S秒", gmtime())
+
+    directory = pathName + "/crash/"
+    logFilePath =  directory + "log.txt"
+
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    return logFilePath

@@ -5,10 +5,28 @@ from pron91pkg.pron91 import Pron91
 from pron91pkg.databasemanager import Databasemanager
 import time
 from pron91pkg import httputil
+import traceback
+import sys, os
+from time import gmtime, strftime
+
 
 running = True
 SLEEP_per_Video = 10
 if __name__ == '__main__':
+    try:
+        logFilePath = generateLogPath()
+        #This line opens a log file
+        log = open(logFilePath, "w")
+
+        main()
+
+
+
+    except Exception:
+        traceback.print_exc(file=log)
+
+
+def main():
     pron = Pron91();
     db = Databasemanager()
 
@@ -54,3 +72,16 @@ if __name__ == '__main__':
         time.sleep(SLEEP_per_Video)
 
     print("End")
+
+def generateLogPath():
+
+    pathName = os.path.dirname(sys.argv[0])
+
+    strTime = trftime("%Y-%m-%d %H时%M分:%S秒", gmtime())
+
+    directory = pathName + "/crash/"
+    logFilePath =  directory + "log.txt"
+
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    return logFilePath
