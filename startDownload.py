@@ -9,9 +9,14 @@ import traceback
 import sys, os
 from time import gmtime, strftime
 import subprocess
+from pron91pkg.disk import get_size
+from pron91pkg.disk import convertToGb
+
 
 running = True
 SLEEP_per_Video = 10
+# 10GB
+MAX_DOWNLOAD_SIZE = 10
 
 
 def AmIRunning():
@@ -66,6 +71,11 @@ def main():
         except:
             db.updatePronDownloadStatus(viewkey,0)
 
+        foldersize = get_size(httputil.BaseDownloadPath)
+        foldersize = convertToGb(foldersize)
+
+        if foldersize > MAX_DOWNLOAD_SIZE:
+            running = False
 
         time.sleep(SLEEP_per_Video)
 

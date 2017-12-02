@@ -56,10 +56,4 @@ def get_size(start_path = '.'):
 
 
 
-BaseDownloadPath = "video/"
-
-size = get_size(start_path=BaseDownloadPath)
-print(size)
-
-print(convertToGb(size))
 
