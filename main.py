@@ -122,7 +122,7 @@ def generateLogPath():
 
     pathName = os.path.dirname(sys.argv[0])
 
-    strTime = strftime("%Y-%m-%d %H时%M分%S秒", gmtime())
+    strTime = strftime("%Y-%m-%d %H-%M-%S", gmtime())
 
     directory = pathName + "/crash/"
     logFilePath =  directory + strTime+"log.txt"
