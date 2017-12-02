@@ -13,21 +13,6 @@ SLEEP_per_30_min = 10000 * 30
 SLEEP_per_page = 10
 initURL = "http://91porn.com/v.php?next=watch&page=4089"
 
-if __name__ == '__main__':
-
-    logFilePath = generateLogPath()
-    #This line opens a log file
-    log = open(logFilePath, "w")
-    try:
-
-
-
-        main()
-
-
-
-    except Exception:
-        traceback.print_exc(file=log)
 
 
 
@@ -125,11 +110,28 @@ def generateLogPath():
 
     pathName = os.path.dirname(sys.argv[0])
 
-    strTime = trftime("%Y-%m-%d %H时%M分:%S秒", gmtime())
+    strTime = strftime("%Y-%m-%d %H时%M分%S秒", gmtime())
 
     directory = pathName + "/crash/"
-    logFilePath =  directory + "log.txt"
+    logFilePath =  directory + strTime+"log.txt"
 
     if not os.path.exists(directory):
         os.makedirs(directory)
     return logFilePath
+
+
+if __name__ == '__main__':
+
+    logFilePath = generateLogPath()
+    #This line opens a log file
+    log = open(logFilePath, "w")
+    try:
+
+
+
+        main()
+
+
+
+    except Exception:
+        traceback.print_exc(file=log)
