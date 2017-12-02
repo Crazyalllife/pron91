@@ -7,6 +7,7 @@ import time
 from datetime import datetime
 import traceback
 import sys, os
+import subprocess
 from time import gmtime, strftime
 
 SLEEP_per_30_min = 10000 * 30
@@ -15,9 +16,20 @@ initURL = "http://91porn.com/v.php?next=watch&page=4089"
 
 
 
+def AmIRunning():
+    out_bytes = subprocess.check_output('ps -ef | grep python3', shell=True)
+    text = out_bytes.decode('utf-8')
+    fileName = os.path.abspath(sys.argv[0])
 
+    if fileName in text:
+        return True
+    else:
+        return False
 
 def main():
+
+
+
     pron = Pron91();
 
     # pron.fetch_home_page()
@@ -127,11 +139,11 @@ if __name__ == '__main__':
     log = open(logFilePath, "w")
     try:
 
-
-
-        main()
-
-
+        if AmIRunning():
+            print("I am Running")
+        else:
+            print("I am not Running")
+            main()
 
     except Exception:
         traceback.print_exc(file=log)

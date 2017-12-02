@@ -8,12 +8,21 @@ from pron91pkg import httputil
 import traceback
 import sys, os
 from time import gmtime, strftime
-
+import subprocess
 
 running = True
 SLEEP_per_Video = 10
 
 
+def AmIRunning():
+    out_bytes = subprocess.check_output('ps -ef | grep python3', shell=True)
+    text = out_bytes.decode('utf-8')
+    fileName = os.path.abspath(sys.argv[0])
+
+    if fileName in text:
+        return True
+    else:
+        return False
 
 def main():
     pron = Pron91();
@@ -81,9 +90,14 @@ if __name__ == '__main__':
     log = open(logFilePath, "w")
     try:
 
-        main()
+        if AmIRunning():
+            print("I am Running")
+        else:
+            main()
 
 
 
     except Exception:
         traceback.print_exc(file=log)
+
+
