@@ -13,10 +13,10 @@ from time import gmtime, strftime
 running = True
 SLEEP_per_Video = 10
 if __name__ == '__main__':
+    logFilePath = generateLogPath()
+    #This line opens a log file
+    log = open(logFilePath, "w")
     try:
-        logFilePath = generateLogPath()
-        #This line opens a log file
-        log = open(logFilePath, "w")
 
         main()
 

@@ -15,10 +15,12 @@ initURL = "http://91porn.com/v.php?next=watch&page=4089"
 
 if __name__ == '__main__':
 
+    logFilePath = generateLogPath()
+    #This line opens a log file
+    log = open(logFilePath, "w")
     try:
-        logFilePath = generateLogPath()
-        #This line opens a log file
-        log = open(logFilePath, "w")
+
+
 
         main()
 
