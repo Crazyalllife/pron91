@@ -16,7 +16,7 @@ from pron91pkg.disk import convertToGb
 running = True
 SLEEP_per_Video = 10
 # 10GB
-MAX_DOWNLOAD_SIZE = 10
+MAX_DOWNLOAD_SIZE = 20
 
 
 # def AmIRunning():
