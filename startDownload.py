@@ -63,6 +63,8 @@ def main():
         try:
 
             isHaveSpace = httputil.downloadVideo(downloadURL,file)
+
+            print("isHaveSpace" + str(isHaveSpace))
             if isHaveSpace:
                 db.updatePronDownloadStatus(viewkey,1)
                 targetPron = db.getPronToDownload()
