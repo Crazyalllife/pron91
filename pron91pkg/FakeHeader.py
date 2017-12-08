@@ -12,7 +12,7 @@ class FakeHeader:
     def __init__(self):
         self.ua = FakeUserAgent()
         self.language = 'zh-CN,zh;q=0.8,en-US;q=0.6,en;q=0.4'
-        self.accept = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+        self.accept = 'text/html,image/jpeg,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
 
     def prepareip(self):
 
