@@ -26,7 +26,7 @@ class GirlAtlas:
         logging.debug("fetchMaxPageNumber")
 
         rawHtml = httputil.fetchContent(url)
-        print(rawHtml)
+        # print(rawHtml)
         soup = BeautifulSoup(rawHtml , "html.parser")
 
         targets = soup.find_all("ul",class_="pagination")
