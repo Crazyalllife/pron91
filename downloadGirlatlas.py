@@ -33,8 +33,8 @@ def main():
         for picURL in picURLs:
 
             if db.isPictureDownloaded(picURL):
-                print("该图片已经被下载")
-                
+                print( " 第"+ str(num) + "张"+"图片已经被下载")
+
 
             else:
 
