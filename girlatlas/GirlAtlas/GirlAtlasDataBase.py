@@ -203,7 +203,7 @@ class DatabaseManager:
 
     def isPictureDownloaded(self,url):
         result = False
-        cursor = self.c.execute("SELECT * from Pictures WHERE url=?",(url,))
+        cursor = self.c.execute("SELECT * from Pictures WHERE url=? and downloadStatus = 1",(url,))
 
         length = len(cursor.fetchall())
         print("是否下载？"+url + str(length))

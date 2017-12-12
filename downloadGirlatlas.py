@@ -35,14 +35,14 @@ def main():
             if db.isPictureDownloaded(picURL):
                 print( " 第"+ str(num) + "张"+"图片已经被下载")
 
-
+                num = num+1
             else:
 
                 print("开始下载：" +picURL + " 第"+ str(num) + "张")
                 ob.downloadAlbum(title,str(num),picURL)
-
+                num = num+1
                 db.updatePicture(picURL,1)
-        num = num+1
+
         print('---------------相册下载完成')
         time.sleep(SLEEP_per_Album)
         foldersize = get_size(httputil.BaseDownloadPath)
