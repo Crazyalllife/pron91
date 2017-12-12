@@ -7,19 +7,14 @@ from pron91pkg import httputil
 from bs4 import BeautifulSoup
 import re
 import os
-import shutil
 import requests
-import io
 from pron91pkg.FakeHeader import FakeHeader
-import gzip
-from mimetypes import guess_extension
-from urllib.request import urlretrieve
 
 BaseDownloadPath = "GirlAtlas/"
 
-referer =  'https://www.girl-atlas.com'
+referer = 'https://www.girl-atlas.com'
 class GirlAtlas:
-    def __init__(self , enter_point='https://www.girl-atlas.com'):
+    def __init__(self ,enter_point='https://www.girl-atlas.com'):
 
         logging.debug("Pron91 init")
 

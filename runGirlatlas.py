@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 __author__ = 'Liangmingli'
-from girlatlas.GirlAtlas import GirlAtlas
-from girlatlas.GirlAtlasDataBase import DatabaseManager
+import os
+import sys
 import time
-from time import gmtime, strftime
 import traceback
-import sys, os
+from time import gmtime, strftime
+
+from girlatlas.GirlAtlas import GirlAtlas
+from girlatlas.GirlAtlas.GirlAtlasDataBase import DatabaseManager
 
 SLEEP_per_Album = 10
 def main():

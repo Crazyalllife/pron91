@@ -4,18 +4,18 @@
 from pron91pkg.pron91 import Pron91
 from pron91pkg.databasemanager import Databasemanager
 import time
-from pron91pkg import httputil
+
 import traceback
 import sys, os
 from time import gmtime, strftime
 import subprocess
 from pron91pkg.disk import get_size
 from pron91pkg.disk import convertToGb
-
+from pron91pkg import httputil
 
 running = True
 SLEEP_per_Video = 10
-# 10GB
+# 20GB
 MAX_DOWNLOAD_SIZE = 20
 
 

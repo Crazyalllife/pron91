@@ -2,15 +2,17 @@
 # -*- encoding: utf-8 -*-
 
 __author__ = 'Liangmingli'
-from girlatlas.GirlAtlas import GirlAtlas
-from girlatlas.GirlAtlasDataBase import DatabaseManager
-import time
-from pron91pkg import httputil
+import os
+import sys
 import traceback
-import sys, os
 from time import gmtime, strftime
+from pron91pkg.disk import get_size
+from pron91pkg.disk import convertToGb
+from pron91pkg import httputil
+from girlatlas.GirlAtlas import GirlAtlas
+from girlatlas.GirlAtlas.GirlAtlasDataBase import DatabaseManager
 
-
+MAX_DOWNLOAD_SIZE = 10
 def main():
     ob = GirlAtlas()
     db = DatabaseManager()
@@ -32,8 +34,16 @@ def main():
             ob.downloadAlbum(title,str(num),picURL)
             num = num+1
         print('---------------相册下载完成')
-        db.updateAlbumDownloadStatus(1,albumID)
-        album = db.getAlbumToDownload()
+
+        foldersize = get_size(httputil.BaseDownloadPath)
+        foldersize = convertToGb(foldersize)
+
+        if foldersize > MAX_DOWNLOAD_SIZE:
+            running = False
+        else:
+
+            db.updateAlbumDownloadStatus(1,albumID)
+            album = db.getAlbumToDownload()
     print()
 
 def generateLogPath():
