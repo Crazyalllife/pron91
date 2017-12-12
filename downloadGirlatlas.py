@@ -31,9 +31,17 @@ def main():
         print(title + '相册有' + str(len(picURLs)) + '张图片')
 
         for picURL in picURLs:
-            print("开始下载：" +picURL + " 第"+ str(num) + "张")
-            ob.downloadAlbum(title,str(num),picURL)
-            num = num+1
+
+            if db.isPictureDownloaded(picURL):
+                print("该图片已经被下载")
+
+            else:
+
+                print("开始下载：" +picURL + " 第"+ str(num) + "张")
+                ob.downloadAlbum(title,str(num),picURL)
+
+                db.updatePicture(picURL,1)
+        num = num+1
         print('---------------相册下载完成')
         time.sleep(SLEEP_per_Album)
         foldersize = get_size(httputil.BaseDownloadPath)

@@ -19,6 +19,7 @@ class GirlAtlas:
         logging.debug("Pron91 init")
 
         self.enter_point = enter_point
+        self.fake = FakeHeader()
 
 
     def fetchMaxPageNumber(self ,url='https://www.girl-atlas.com/index1'):
@@ -176,8 +177,8 @@ class GirlAtlas:
             print("")
 
 
-        fake = FakeHeader()
-        header = fake.buildFakeHeader(referer = referer)
+
+        header = self.fake.buildFakeHeader(referer = referer)
         response = requests.get(url, verify=False,headers=header)
 
         outFile = open(targetPath,'wb')

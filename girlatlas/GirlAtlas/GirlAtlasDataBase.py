@@ -200,3 +200,13 @@ class DatabaseManager:
         self.c.execute("UPDATE Album set  downloadStatus=? where albumID=? " , (status,albumID))
         self.conn.commit()
         return
+
+    def isPictureDownloaded(self,url):
+        result = False
+        cursor = self.c.execute("SELECT * from Pictures WHERE url=?",(url,))
+
+        length = len(cursor.fetchall())
+
+        if length > 0:
+            result = True
+        return result
