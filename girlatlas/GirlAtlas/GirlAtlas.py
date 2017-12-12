@@ -154,14 +154,14 @@ class GirlAtlas:
         try:
             os.makedirs(targetPath,0o0755);
         except FileExistsError:
-            print("下载目录存在")
+            print("")
 
         targetPath = targetPath + title
 
         try:
             os.makedirs(targetPath,0o0755);
         except FileExistsError:
-            print("相册目录存在")
+            print("")
 
 
         left = url.rfind('.')
@@ -183,6 +183,8 @@ class GirlAtlas:
         outFile = open(targetPath,'wb')
         outFile.write(response.content)
         outFile.close()
+        del response
+
 
         return
 #
