@@ -34,6 +34,7 @@ def main():
 
             if db.isPictureDownloaded(picURL):
                 print("该图片已经被下载")
+                
 
             else:
 
