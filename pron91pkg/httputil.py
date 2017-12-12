@@ -50,12 +50,13 @@ def fetchContent(url):
 
     request_headers = fakerHeader.buildFakeHeader()
     print(url)
-    request = urllib.request.Request(url,data=None,headers=request_headers)
-    response = urllib.request.urlopen(request)
+    # request = urllib.request.Request(url,data=None,headers=request_headers)
+    # response = urllib.request.urlopen(request)
 
-    rawHtml = response.read()
+    # rawHtml = response.read()
 
-    return rawHtml
+    response = requests.get(url=url , headers = request_headers, verify=False)
+    return response.text
 
 
 def fetchActualMessage(rawHtml):

@@ -12,7 +12,7 @@ class FakeHeader:
     def __init__(self):
         self.ua = FakeUserAgent()
         self.language = 'zh-CN,zh;q=0.8,en-US;q=0.6,en;q=0.4'
-        self.accept = 'text/html,image/jpeg,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+        self.accept = 'image/webp,image/apng,text/html,image/jpeg,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
 
     def prepareip(self):
 
@@ -24,15 +24,24 @@ class FakeHeader:
 
         return randIP
 
-    def buildFakeHeader(self):
+    def buildFakeHeader(self ,referer = None):
         ip = self.prepareip()
         userAgent = self.ua.random
+        if referer == None:
 
-        request_headers = {
+            request_headers = {
+                "Accept-Language":self.language ,
+                "User-Agent":userAgent ,
+                "Accept":self.accept ,
+                "X-Forwarded-For":ip
+            }
+        else:
+            request_headers = {
             "Accept-Language":self.language ,
             "User-Agent":userAgent ,
             "Accept":self.accept ,
-            "X-Forwarded-For":ip
+            "X-Forwarded-For":ip,
+            "referer":referer
         }
 
         return request_headers
@@ -46,7 +55,8 @@ class FakeHeader:
             "User-Agent":userAgent ,
             "Accept":self.accept ,
             "X-Forwarded-For":ip,
-            "cookie":cookie
+            "cookie":cookie,
+            "Accept-Encoding":"gzip, deflate, br"
         }
 
         return request_headers

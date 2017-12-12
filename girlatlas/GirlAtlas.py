@@ -4,14 +4,20 @@
 __author__ = 'Liangmingli'
 import logging
 from pron91pkg import httputil
-import requests
 from bs4 import BeautifulSoup
 import re
 import os
 import shutil
+import requests
+import io
 from pron91pkg.FakeHeader import FakeHeader
+import gzip
+from mimetypes import guess_extension
+from urllib.request import urlretrieve
+
 BaseDownloadPath = "GirlAtlas/"
 
+referer =  'https://www.girl-atlas.com'
 class GirlAtlas:
     def __init__(self , enter_point='https://www.girl-atlas.com'):
 
@@ -25,11 +31,16 @@ class GirlAtlas:
         logging.debug("fetchMaxPageNumber")
 
         rawHtml = httputil.fetchContent(url)
-
+        print(rawHtml)
         soup = BeautifulSoup(rawHtml , "html.parser")
 
-        target = soup.find_all("ul",class_="pagination")
-        target = target[0].find_all("li")
+        targets = soup.find_all("ul",class_="pagination")
+
+        size = len(targets)
+        print('size 是' + str(size))
+        if size == 0:
+            return 0
+        target = targets[0].find_all("li")
 
 
         numbers = []
@@ -169,17 +180,14 @@ class GirlAtlas:
         except FileNotFoundError:
             print("")
 
-        fakerHeader = FakeHeader()
-        request_headers = fakerHeader.buildFakeHeader()
-        # Upgrade-Insecure-Requests:1
-        header =  {'user-agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.84 Safari/537.36', 'Upgrade-Insecure-Requests': str(1)}
-        print('request:' +request_headers)
-        response = requests.get(url, stream=True ,headers=request_headers)
 
+        fake = FakeHeader()
+        header = fake.buildFakeHeader(referer = referer)
+        response = requests.get(url, verify=False,headers=header)
 
-        with open(targetPath, 'wb') as out_file:
-            shutil.copyfileobj(response.raw, out_file)
-            del response
+        outFile = open(targetPath,'wb')
+        outFile.write(response.content)
+        outFile.close()
 
         return
 #
@@ -194,5 +202,33 @@ class GirlAtlas:
 # print(urls)
 #
 #
-# ob.downloadAlbum("test",1,'https://girlatlas.b0.upaiyun.com/4/20121220/14253591da6584f21dee.jpg!lrg')
 
+# fakerHeader = FakeHeader()
+#
+# request_headers = fakerHeader.buildFakeHeader()
+# session = requests.Session()
+# url = 'https://www.girl-atlas.com/album/576545e258e039318beb3912'
+# html = session.get(url,allow_redirects=True,headers = request_headers ,verify=False)
+
+# print(html.status_code)
+# print(html.encoding)
+# print(html.headers)
+# # print(html.text)
+# print(html.history)
+# print(html.cookies)
+# print(html.cookies.keys())
+# print(html.cookies.values())
+
+# url = 'https://girlatlas.b0.upaiyun.com/4/20121220/1426719b95af6976cdef.jpg!lrg'
+# session.headers.update({'referer':'https://www.girl-atlas.com'})
+# respone = requests.get(url ,verify=False,headers = {'referer':'https://www.girl-atlas.com'})
+#
+# print(respone.status_code)
+# print(respone.encoding)
+# print(respone.headers)
+# print('---------------------')
+#
+# targetPath = '1.jpg'
+# outFile = open(targetPath,'wb')
+# outFile.write(respone.content)
+# outFile.close()
