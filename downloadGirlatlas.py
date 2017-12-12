@@ -25,12 +25,13 @@ def main():
         picURLs = ob.fetchAlbum(targetURL)
 
         num = 1
+        print(title + '相册有' + str(len(picURLs)) + '张图片')
 
         for picURL in picURLs:
             print("开始下载：" +picURL)
             ob.downloadAlbum(title,str(num),picURL)
             num = num+1
-
+        print('---------------相册下载完成')
         db.updateAlbumDownloadStatus(1,albumID)
         album = db.getAlbumToDownload()
     print()
