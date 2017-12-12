@@ -10,8 +10,10 @@ from pron91pkg.disk import convertToGb
 from pron91pkg import httputil
 from girlatlas.GirlAtlas.GirlAtlas import GirlAtlas
 from girlatlas.GirlAtlas.GirlAtlasDataBase import DatabaseManager
-
+import time
 MAX_DOWNLOAD_SIZE = 10
+
+SLEEP_per_Album = 10
 def main():
     ob = GirlAtlas()
     db = DatabaseManager()
@@ -33,7 +35,7 @@ def main():
             ob.downloadAlbum(title,str(num),picURL)
             num = num+1
         print('---------------相册下载完成')
-
+        time.sleep(SLEEP_per_Album)
         foldersize = get_size(httputil.BaseDownloadPath)
         foldersize = convertToGb(foldersize)
 
