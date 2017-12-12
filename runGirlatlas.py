@@ -7,7 +7,7 @@ import time
 import traceback
 from time import gmtime, strftime
 
-from girlatlas.GirlAtlas import GirlAtlas
+from girlatlas.GirlAtlas.GirlAtlas import GirlAtlas
 from girlatlas.GirlAtlas.GirlAtlasDataBase import DatabaseManager
 
 SLEEP_per_Album = 10

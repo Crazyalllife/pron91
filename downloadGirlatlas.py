@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
-
 __author__ = 'Liangmingli'
 import os
 import sys
@@ -9,7 +8,7 @@ from time import gmtime, strftime
 from pron91pkg.disk import get_size
 from pron91pkg.disk import convertToGb
 from pron91pkg import httputil
-from girlatlas.GirlAtlas import GirlAtlas
+from girlatlas.GirlAtlas.GirlAtlas import GirlAtlas
 from girlatlas.GirlAtlas.GirlAtlasDataBase import DatabaseManager
 
 MAX_DOWNLOAD_SIZE = 10
