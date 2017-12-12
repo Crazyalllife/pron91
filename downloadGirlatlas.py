@@ -31,7 +31,7 @@ def main():
         print(title + '相册有' + str(len(picURLs)) + '张图片')
 
         for picURL in picURLs:
-            print("开始下载：" +picURL)
+            print("开始下载：" +picURL + " 第"+ str(num) + "张")
             ob.downloadAlbum(title,str(num),picURL)
             num = num+1
         print('---------------相册下载完成')
