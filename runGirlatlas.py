@@ -41,10 +41,7 @@ def main():
             picUrls=ob.fetchAlbum(url)
 
             for picUrl in picUrls:
-                if db.isPictureExist(picUrl):
-                    # db.updatePicture(picUrl,0)
-                    print('')
-                else:
+                if db.isPictureExist(picUrl) == False:
                     db.insertPicture(id,picUrl)
 
         currentPageIndex = currentPageIndex + 1
@@ -82,17 +79,19 @@ def generateLogPath():
     return logFilePath
 
 if __name__ == '__main__':
-    logFilePath = generateLogPath()
-    #This line opens a log file
-    log = open(logFilePath, "w")
-    try:
 
-        main()
-        # if AmIRunning():
-        #     print("I am Running")
-        # else:
-        #     print("I am not Running")
-        #     main()
-
-    except Exception:
-        traceback.print_exc(file=log)
+    main()
+    # logFilePath = generateLogPath()
+    # #This line opens a log file
+    # log = open(logFilePath, "w")
+    # try:
+    #
+    #     main()
+    #     # if AmIRunning():
+    #     #     print("I am Running")
+    #     # else:
+    #     #     print("I am not Running")
+    #     #     main()
+    #
+    # except Exception:
+    #     traceback.print_exc(file=log)

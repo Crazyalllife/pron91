@@ -86,27 +86,28 @@ class GirlAtlas:
             id = id.replace("/album/","")
 
             albumContent = target.find("p",class_="desp")
-            print(id)
-            print(title)
+            # print(id)
+            # print(title)
 
 
             picNumber =self.reRemove("含","张",albumContent.text)
 
             picNumber = int(picNumber)
-            print(picNumber)
+            # print(picNumber)
             author = self.reRemove("由","在",albumContent.text)
 
 
-            print(author)
+            # print(author)
 
             date = self.reRemove("在","创",albumContent.text)
             watchTimes = self.reRemove("了","次",albumContent.text)
 
             albumURL = "https://www.girl-atlas.com/album/" + id + "?display=2"
-            print(date)
-            print(watchTimes)
+            # print(date)
+            # print(watchTimes)
 
-            print(albumURL)
+            # print(albumURL)
+            print("标题:" + title + " 相册共" + str(picNumber) +"张 " + "地址:" + albumURL)
             result = {
                 "albumId":id,
                 "title":title,
@@ -134,14 +135,18 @@ class GirlAtlas:
 
 
     def fetchAlbum(self,url):
+        urls = []
         rawHtml = httputil.fetchContent(url)
         soup = BeautifulSoup(rawHtml , "html.parser")
-        targets = soup.find_all("ul",class_="gridview")
-        targets = targets[0].find_all("li")
+        contents = soup.find_all("ul",class_="gridview")
+        if len(contents) == 0:
+            return urls
 
-        print(len(targets))
+        targets = contents[0].find_all("li")
 
-        urls = []
+        # print(len(targets))
+
+
         for target in targets:
 
             content = target.find("a")['href']
