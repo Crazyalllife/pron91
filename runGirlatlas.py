@@ -11,6 +11,7 @@ from girlatlas.GirlAtlas.GirlAtlas import GirlAtlas
 from girlatlas.GirlAtlas.GirlAtlasDataBase import DatabaseManager
 
 SLEEP_per_Album = 10
+SLEEP_For_TimeOut = 60
 def main():
     ob = GirlAtlas()
     db = DatabaseManager()
@@ -80,7 +81,15 @@ def generateLogPath():
 
 if __name__ == '__main__':
 
-    main()
+    isHaveTimeOutError = True
+    while(isHaveTimeOutError):
+        try:
+            main()
+        except TimeoutError:
+            isHaveTimeOutError = True
+            continue
+
+        isHaveTimeOutError = False
     # logFilePath = generateLogPath()
     # #This line opens a log file
     # log = open(logFilePath, "w")
