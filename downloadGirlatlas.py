@@ -82,7 +82,7 @@ if __name__ == '__main__':
     while(isHaveTimeOutError):
         try:
             main()
-        except TimeoutError:
+        except :
             isHaveTimeOutError = True
             continue
 
