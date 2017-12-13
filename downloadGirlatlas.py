@@ -73,18 +73,19 @@ def generateLogPath():
 
 
 if __name__ == '__main__':
-    logFilePath = generateLogPath()
-    #This line opens a log file
-    log = open(logFilePath, "w")
-    try:
-
-        main()
-        # if AmIRunning():
-        #     print("I am Running")
-        # else:
-        #     main()
-
-
-
-    except Exception:
-        traceback.print_exc(file=log)
+     main()
+    # logFilePath = generateLogPath()
+    # #This line opens a log file
+    # log = open(logFilePath, "w")
+    # try:
+    #
+    #     main()
+    #     # if AmIRunning():
+    #     #     print("I am Running")
+    #     # else:
+    #     #     main()
+    #
+    #
+    #
+    # except Exception:
+    #     traceback.print_exc(file=log)
