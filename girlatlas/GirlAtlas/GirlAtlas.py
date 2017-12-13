@@ -33,7 +33,7 @@ class GirlAtlas:
         targets = soup.find_all("ul",class_="pagination")
 
         size = len(targets)
-        print('size 是' + str(size))
+        # print('size 是' + str(size))
         if size == 0:
             return 0
         target = targets[0].find_all("li")

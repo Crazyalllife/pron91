@@ -22,10 +22,12 @@ def main():
 
     print(album)
     while(running and album != None):
+        tilteKey = "["+str(album['tilteKey'])+"]"
         albumID = album['albumID']
         targetURL = album['targetURL']
         title = album['title']
         picURLs = ob.fetchAlbum(targetURL)
+        title = title + tilteKey
 
         num = 1
         print(title + '相册有' + str(len(picURLs)) + '张图片')

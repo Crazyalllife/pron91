@@ -183,6 +183,7 @@ class DatabaseManager:
         if size > 0:
 
             for row in rows:
+                titleKey = row[0]
                 targetURL = row[7]
                 viewkey = row[1]
                 title = row[2]
@@ -190,7 +191,8 @@ class DatabaseManager:
             result = {
                 "albumID":viewkey,
                 "targetURL":targetURL,
-                "title":title
+                "title":title,
+                "title":titleKey
             }
         else:
             result = None
