@@ -14,6 +14,7 @@ import time
 MAX_DOWNLOAD_SIZE = 10
 
 SLEEP_per_Album = 10
+SLEEP_For_TimeOut = 60
 def main():
     ob = GirlAtlas()
     db = DatabaseManager()
@@ -41,7 +42,11 @@ def main():
             else:
 
                 print("开始下载：" +picURL + " 第"+ str(num) + "张")
-                ob.downloadAlbum(title,str(num),picURL)
+                try:
+                    ob.downloadAlbum(title,str(num),picURL)
+                except(TimeoutError):
+                    time.sleep(SLEEP_For_TimeOut)
+                    continue
                 num = num+1
                 db.updatePicture(picURL,1)
 

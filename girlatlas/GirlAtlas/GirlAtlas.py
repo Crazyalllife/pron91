@@ -156,18 +156,18 @@ class GirlAtlas:
 
     def downloadAlbum(self , title , fileName,url):
         targetPath = BaseDownloadPath
-        empty = None
+
         try:
             os.makedirs(targetPath,0o0755);
         except FileExistsError:
-            empty = None
+            pass
 
         targetPath = targetPath + title
 
         try:
             os.makedirs(targetPath,0o0755);
         except FileExistsError:
-            empty = None
+            pass
 
 
         left = url.rfind('.')
@@ -179,7 +179,7 @@ class GirlAtlas:
         try:
             os.remove(targetPath)
         except FileNotFoundError:
-            empty = None
+            pass
 
 
 
