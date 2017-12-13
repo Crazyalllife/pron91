@@ -7,9 +7,16 @@ import sqlite3
 
 class DatabaseManager:
     def __init__(self):
-        self.conn = sqlite3.connect('GirlAtlas.db')
+        self.conn = sqlite3.connect('GirlAtlas.db' ,timeout=30)
+
+        self.mode_wal = 'PRAGMA journal_mode=WAL'
+        self.mode_rollback = 'PRAGMA journal_mode=DELETE'
+
+
 
         self.c = self.conn.cursor()
+        #开启WAL模式
+        self.c.execute(self.mode_wal)
 
         self.c.execute('''
         CREATE TABLE if not exists Page
