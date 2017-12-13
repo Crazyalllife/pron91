@@ -208,7 +208,7 @@ class DatabaseManager:
         cursor = self.c.execute("SELECT * from Pictures WHERE url=? and downloadStatus = 1",(url,))
 
         length = len(cursor.fetchall())
-        print("是否下载？"+url + str(length))
+        print("是否下载？"+url)
         if length > 0:
             result = True
         return result
