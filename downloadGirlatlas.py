@@ -22,7 +22,7 @@ def main():
 
     print(album)
     while(running and album != None):
-        tilteKey = "["+str(album['tilteKey'])+"]"
+        tilteKey = "["+str(album['titleKey'])+"]"
         albumID = album['albumID']
         targetURL = album['targetURL']
         title = album['title']
