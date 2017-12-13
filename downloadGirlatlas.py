@@ -78,7 +78,15 @@ def generateLogPath():
 
 
 if __name__ == '__main__':
-     main()
+    isHaveTimeOutError = True
+    while(isHaveTimeOutError):
+        try:
+            main()
+        except TimeoutError:
+            isHaveTimeOutError = True
+            continue
+
+        isHaveTimeOutError = False
     # logFilePath = generateLogPath()
     # #This line opens a log file
     # log = open(logFilePath, "w")
