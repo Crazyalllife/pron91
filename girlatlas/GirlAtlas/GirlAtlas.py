@@ -191,7 +191,7 @@ class GirlAtlas:
         outFile.close()
         del response
 
-
+        print("图片OK")
         return
 #
 # ob = GirlAtlas()
