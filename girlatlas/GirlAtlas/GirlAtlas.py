@@ -184,7 +184,7 @@ class GirlAtlas:
 
 
         header = self.fake.buildFakeHeader(referer = referer)
-        response = requests.get(url, verify=False,headers=header)
+        response = requests.get(url, verify=False,headers=header , timeout = 10)
 
         outFile = open(targetPath,'wb')
         outFile.write(response.content)

@@ -55,7 +55,7 @@ def fetchContent(url):
 
     # rawHtml = response.read()
 
-    response = requests.get(url=url , headers = request_headers, verify=False)
+    response = requests.get(url=url , headers = request_headers, verify=False, timeout = 10)
     return response.text
 
 
