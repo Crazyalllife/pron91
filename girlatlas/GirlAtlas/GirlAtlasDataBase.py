@@ -192,7 +192,7 @@ class DatabaseManager:
                 "albumID":viewkey,
                 "targetURL":targetURL,
                 "title":title,
-                "title":titleKey
+                "titleKey":titleKey
             }
         else:
             result = None
