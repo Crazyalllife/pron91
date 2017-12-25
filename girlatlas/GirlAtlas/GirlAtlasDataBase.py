@@ -4,10 +4,18 @@ __author__ = 'Liangmingli'
 
 
 import sqlite3
+import os
 
 class DatabaseManager:
     def __init__(self):
-        self.conn = sqlite3.connect('GirlAtlas.db' ,timeout=30)
+
+        targetPath = 'spiderDB'
+        try:
+            os.makedirs(targetPath,0o0755);
+        except FileExistsError:
+            pass
+
+        self.conn = sqlite3.connect('spiderDB/GirlAtlas.db' ,timeout=30)
 
         self.mode_wal = 'PRAGMA journal_mode=WAL'
         self.mode_rollback = 'PRAGMA journal_mode=DELETE'

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 import sqlite3
+import os
 """
 数据库部分
 """
@@ -8,7 +9,13 @@ import sqlite3
 class Databasemanager:
     def __init__(self):
 
-        self.conn = sqlite3.connect('pron91.db' ,timeout=30)
+        targetPath = 'spiderDB'
+        try:
+            os.makedirs(targetPath,0o0755);
+        except FileExistsError:
+            pass
+
+        self.conn = sqlite3.connect('spiderDB/pron91.db' ,timeout=30)
         self.mode_wal = 'PRAGMA journal_mode=WAL'
         self.mode_rollback = 'PRAGMA journal_mode=DELETE'
 
