@@ -14,7 +14,7 @@ from pron91pkg.FakeHeader import FakeHeader
 #3.download ts files from m3u8
 #4.merge m3u8 to one file(ts file)
 
-Sleep_Per_File = 3
+Sleep_Per_File = 0
 Sleep_Per_TioutOut = 10
 chunk_size = 512
 basePath = "Spider/yezmw/"
@@ -153,6 +153,10 @@ def startdownloadVideo(referUrl,name,linecount):
             # print(request_headers)
             # print(response.status_code)
 
+            for chunk in response.iter_content(chunk_size):
+                outFile.write(chunk)
+            del response
+
         except requests.exceptions.ReadTimeout:
             time.sleep(Sleep_Per_TioutOut)
             continue
@@ -160,11 +164,6 @@ def startdownloadVideo(referUrl,name,linecount):
             time.sleep(Sleep_Per_TioutOut)
             continue
         time.sleep(Sleep_Per_File)
-
-        for chunk in response.iter_content(chunk_size):
-            outFile.write(chunk)
-        del response
-
 
 
 
