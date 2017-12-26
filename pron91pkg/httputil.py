@@ -230,6 +230,10 @@ def __escape_file_name_str(file_name):
         Args:
             file_name (str): 文件名
     """
+    file_name = file_name.replace("-","_")
+    file_name = file_name.replace(" ","")
+    file_name = file_name.replace("\n","")
+    file_name = file_name.replace("\n\r","")
 
     while file_name.find('/') >= 0:
         file_name = file_name.replace('/', '')

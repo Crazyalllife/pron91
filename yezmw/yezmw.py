@@ -8,6 +8,7 @@ import requests
 import shutil
 import os
 import time
+from pron91pkg.FakeHeader import FakeHeader
 # 1.get title
 #2.get html5 m3u8
 #3.download ts files from m3u8
@@ -15,7 +16,7 @@ import time
 
 Sleep_Per_File = 8
 Sleep_Per_TioutOut = 10
-
+chunk_size = 512
 basePath = "Spider/yezmw/"
 
 def handleVideoContent(url):
@@ -33,6 +34,7 @@ def handleVideoContent(url):
     if len(results)>0:
         targetSoup = results[0]
         title = str(targetSoup.text)
+        title = httputil.__escape_file_name_str(title)
     results = soup.find_all("div",class_="dz")
     if len(results) >0:
         targetSoup = results[0]
@@ -105,6 +107,11 @@ def decodeM3u8File(title,hlsVideoUrl):
     return lineCount
 
 def startdownloadVideo(name,linecount):
+
+    fakeHeader = FakeHeader()
+    name = name.replace("\n","")
+
+
     folderPath = basePath + name +"/"
     downloadPath = folderPath + "parts/"
     disk.mkdir(downloadPath)
@@ -114,6 +121,7 @@ def startdownloadVideo(name,linecount):
 
     index = line.rfind(".")
     type = line[index:]
+    type = type.replace("\n","")
     # xxx.ts
     downloadPath = downloadPath + name + type
     # remove xxx.ts file
@@ -133,20 +141,27 @@ def startdownloadVideo(name,linecount):
         try:
             partUrl = line
             recordNum =  recordNum + 1
-            print("正在下载片段 " + str(recordNum) + " "+str(format(recordNum/linecount*100,".2f")) + "%")
 
-            response = requests.get(partUrl, stream=True , timeout=5)
-        except TimeoutError:
+            print(partUrl)
+            print("正在下载片段 " + str(recordNum) + " "+str(format(recordNum/linecount*100,".2f")) + "%")
+            request_headers = fakeHeader.buildFakeHeader(referer="http://yezmw.com/")
+            response = requests.get(partUrl, stream=True,headers = request_headers,timeout=5)
+
+            print(request_headers)
+            print(response.status_code)
+
+        except requests.exceptions.ReadTimeout:
             time.sleep(Sleep_Per_TioutOut)
             continue
         time.sleep(Sleep_Per_File)
 
-        outFile.write(response.raw.read())
-
-        if i > 4:
-            break
-
+        for chunk in response.iter_content(chunk_size):
+            outFile.write(chunk)
         del response
+
+        break
+
+
 
         line = downloadFile.readline()
     downloadFile.close()
