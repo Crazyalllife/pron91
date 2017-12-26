@@ -55,5 +55,10 @@ def get_size(start_path = '.'):
     return total_size
 
 
-
+def mkdir(targetPath):
+    try:
+        os.makedirs(targetPath,0o0755);
+    except FileExistsError:
+        pass
+    pass
 

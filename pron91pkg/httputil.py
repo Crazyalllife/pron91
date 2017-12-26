@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
-import urllib.request
+
 from bs4 import BeautifulSoup
 import requests
 import shutil
