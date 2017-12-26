@@ -4,7 +4,8 @@ __author__ = 'Liangmingli'
 from yezmw import yezmw
 
 
-url = "http://yezmw.com/video/show/id/4239"
+# url = "http://yezmw.com/video/show/id/4239"
+url = "http://yezmw.com/video/show/id/1773"
 print("解析页面内容")
 #解析页面内容
 result = yezmw.handleVideoContent(url)

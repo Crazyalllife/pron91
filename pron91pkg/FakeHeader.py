@@ -42,9 +42,7 @@ class FakeHeader:
             "Accept":self.accept ,
             "X-Forwarded-For":ip,
             "referer":referer,
-            "X-Requested-With":"ShockwaveFlash/28.0.0.126",
-            "Connection":"keep-alive",
-            "Accept-Encoding": "gzip, deflate"
+            "Connection":"keep-alive"
         }
 
         return request_headers
