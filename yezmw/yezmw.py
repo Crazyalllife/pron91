@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from pron91pkg import disk
 import requests
 import shutil
+import os
 # 1.get title
 #2.get html5 m3u8
 #3.download ts files from m3u8
@@ -53,6 +54,24 @@ def decodeM3u8File(title,hlsVideoUrl):
     index = hlsVideoUrl.rfind("/")
     targetPath = folderPath+hlsVideoUrl[index+1:]
     baseURL = hlsVideoUrl[:index+1]
+
+    #remove m3u8 file
+    try:
+        file = open(targetPath, 'r')
+        file.close()
+        os.remove(targetPath)
+    except FileNotFoundError:
+        pass
+
+    #remove convert.m3u8 file
+    try:
+        file = open(folderPath +"convert.m3u8", 'r')
+        file.close()
+        os.remove(folderPath +"convert.m3u8")
+    except FileNotFoundError:
+        pass
+
+
     #download m3u8 file
     response = requests.get(hlsVideoUrl, stream=True)
     with open(targetPath, 'wb') as out_file:
@@ -90,6 +109,15 @@ def startdownloadVideo(name):
     type = line[index:]
     # xxx.ts
     downloadPath = downloadPath + name + type
+    # remove xxx.ts file
+    try:
+        file = open(downloadPath, 'r')
+        file.close()
+        os.remove(downloadPath)
+    except FileNotFoundError:
+        pass
+
+
     outFile = open(downloadPath,"wb+")
     while(line!= ''):
         partUrl = line

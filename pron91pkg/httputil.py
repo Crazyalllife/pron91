@@ -202,7 +202,7 @@ def downloadVideo(url, file_name):
         file.close()
         os.remove(targetPath)
     except FileNotFoundError:
-        print("")
+        pass
 
 
     response = requests.get(url, stream=True)
