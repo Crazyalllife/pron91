@@ -156,6 +156,9 @@ def startdownloadVideo(referUrl,name,linecount):
         except requests.exceptions.ReadTimeout:
             time.sleep(Sleep_Per_TioutOut)
             continue
+        except requests.exceptions.ConnectionError:
+            time.sleep(Sleep_Per_TioutOut)
+            continue
         time.sleep(Sleep_Per_File)
 
         for chunk in response.iter_content(chunk_size):
