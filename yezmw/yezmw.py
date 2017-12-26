@@ -7,6 +7,7 @@ from pron91pkg import disk
 import requests
 import shutil
 import os
+import time
 # 1.get title
 #2.get html5 m3u8
 #3.download ts files from m3u8
@@ -124,11 +125,17 @@ def startdownloadVideo(name,linecount):
     outFile = open(downloadPath,"wb+")
     recordNum = 0;
     while(line!= ''):
-        partUrl = line
-        recordNum =  recordNum + 1
-        print("正在下载片段 " + str(recordNum) + " "+str(format(recordNum/linecount*100,".2f")) + "%")
 
-        response = requests.get(partUrl, stream=True)
+        try:
+            partUrl = line
+            recordNum =  recordNum + 1
+            print("正在下载片段 " + str(recordNum) + " "+str(format(recordNum/linecount*100,".2f")) + "%")
+
+            response = requests.get(partUrl, stream=True , timeout=5)
+        except TimeoutError:
+            time.sleep(10)
+            continue
+
 
         outFile.write(response.raw.read())
 
