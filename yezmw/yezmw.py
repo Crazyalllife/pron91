@@ -13,6 +13,9 @@ import time
 #3.download ts files from m3u8
 #4.merge m3u8 to one file(ts file)
 
+Sleep_Per_File = 8
+Sleep_Per_TioutOut = 10
+
 basePath = "Spider/yezmw/"
 
 def handleVideoContent(url):
@@ -133,9 +136,9 @@ def startdownloadVideo(name,linecount):
 
             response = requests.get(partUrl, stream=True , timeout=5)
         except TimeoutError:
-            time.sleep(10)
+            time.sleep(Sleep_Per_TioutOut)
             continue
-
+        time.sleep(Sleep_Per_File)
 
         outFile.write(response.raw.read())
 
