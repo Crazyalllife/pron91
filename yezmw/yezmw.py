@@ -45,11 +45,13 @@ def handleVideoContent(url):
 #
 # handleVideoContent(url)
 
-def decodeM3u8File(hlsVideoUrl):
+def decodeM3u8File(title,hlsVideoUrl):
 
+    folderPath = basePath + title +"/"
+    disk.mkdir(folderPath)
     #create floder
     index = hlsVideoUrl.rfind("/")
-    targetPath = basePath + hlsVideoUrl[index+1:]
+    targetPath = folderPath+hlsVideoUrl[index+1:]
     baseURL = hlsVideoUrl[:index+1]
     #download m3u8 file
     response = requests.get(hlsVideoUrl, stream=True)
@@ -58,8 +60,8 @@ def decodeM3u8File(hlsVideoUrl):
         del response
     #decode m3u8 file
     hlsFile = open(targetPath,"r+")
-    outFile = open(basePath +"convert.m3u8","w+")
-    print(hlsFile.name)
+    outFile = open(folderPath +"convert.m3u8","w+")
+    # print(hlsFile.name)
 
     line = hlsFile.readline()
     while(line!= ''):
@@ -77,9 +79,10 @@ def decodeM3u8File(hlsVideoUrl):
     outFile.close()
 
 def startdownloadVideo(name):
-    downloadPath = basePath + "parts/"
+    folderPath = basePath + name +"/"
+    downloadPath = folderPath + "parts/"
     disk.mkdir(downloadPath)
-    downloadFile = open(basePath+"convert.m3u8","r+")
+    downloadFile = open(folderPath+"convert.m3u8","r+")
     line = downloadFile.readline()
 
 
@@ -94,7 +97,7 @@ def startdownloadVideo(name):
 
         response = requests.get(partUrl, stream=True)
 
-        outFile.write(response.raw)
+        outFile.write(response.raw.read())
 
         del response
 
