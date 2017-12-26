@@ -119,9 +119,11 @@ def startdownloadVideo(name):
 
 
     outFile = open(downloadPath,"wb+")
+    recordNum = 0;
     while(line!= ''):
         partUrl = line
-
+        recordNum =  recordNum + 1
+        print("正在下载片段 " + str(recordNum))
 
         response = requests.get(partUrl, stream=True)
 
