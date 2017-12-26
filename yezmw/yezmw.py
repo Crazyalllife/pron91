@@ -14,7 +14,7 @@ from pron91pkg.FakeHeader import FakeHeader
 #3.download ts files from m3u8
 #4.merge m3u8 to one file(ts file)
 
-Sleep_Per_File = 8
+Sleep_Per_File = 3
 Sleep_Per_TioutOut = 10
 chunk_size = 512
 basePath = "Spider/yezmw/"
@@ -106,7 +106,7 @@ def decodeM3u8File(title,hlsVideoUrl):
     outFile.close()
     return lineCount
 
-def startdownloadVideo(name,linecount):
+def startdownloadVideo(referUrl,name,linecount):
 
     fakeHeader = FakeHeader()
     name = name.replace("\n","")
@@ -117,7 +117,7 @@ def startdownloadVideo(name,linecount):
     disk.mkdir(downloadPath)
     downloadFile = open(folderPath+"convert.m3u8","r+")
     line = downloadFile.readline()
-
+    line = line.replace("\n","")
 
     index = line.rfind(".")
     type = line[index:]
@@ -137,18 +137,21 @@ def startdownloadVideo(name,linecount):
     recordNum = 0;
     i = 0
     while(line!= ''):
-        i = i + 1
         try:
+            line = line.replace("\n","")
             partUrl = line
+
+
             recordNum =  recordNum + 1
+
 
             print(partUrl)
             print("正在下载片段 " + str(recordNum) + " "+str(format(recordNum/linecount*100,".2f")) + "%")
-            request_headers = fakeHeader.buildFakeHeader(referer="http://yezmw.com/")
-            response = requests.get(partUrl, stream=True,headers = request_headers,timeout=5)
+            request_headers = fakeHeader.buildFakeHeader(referer=referUrl)
+            response = requests.get(partUrl, stream=True,timeout=5,headers = request_headers)
 
-            print(request_headers)
-            print(response.status_code)
+            # print(request_headers)
+            # print(response.status_code)
 
         except requests.exceptions.ReadTimeout:
             time.sleep(Sleep_Per_TioutOut)
@@ -159,7 +162,7 @@ def startdownloadVideo(name,linecount):
             outFile.write(chunk)
         del response
 
-        break
+
 
 
 

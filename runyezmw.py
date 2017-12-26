@@ -13,5 +13,5 @@ print("解析链接")
 lineCount = yezmw.decodeM3u8File(result["title"],result["hlsViedoUrl"])
 #下载文件
 print("下载文件")
-yezmw.startdownloadVideo(result["title"],lineCount)
+yezmw.startdownloadVideo(url,result["title"],lineCount)
 print("下载完成")

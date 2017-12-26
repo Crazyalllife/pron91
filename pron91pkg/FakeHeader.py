@@ -41,7 +41,10 @@ class FakeHeader:
             "User-Agent":userAgent ,
             "Accept":self.accept ,
             "X-Forwarded-For":ip,
-            "referer":referer
+            "referer":referer,
+            "X-Requested-With":"ShockwaveFlash/28.0.0.126",
+            "Connection":"keep-alive",
+            "Accept-Encoding": "gzip, deflate"
         }
 
         return request_headers
