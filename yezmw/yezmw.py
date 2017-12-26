@@ -127,8 +127,9 @@ def startdownloadVideo(name,linecount):
 
     outFile = open(downloadPath,"wb+")
     recordNum = 0;
+    i = 0
     while(line!= ''):
-
+        i = i + 1
         try:
             partUrl = line
             recordNum =  recordNum + 1
@@ -141,6 +142,9 @@ def startdownloadVideo(name,linecount):
         time.sleep(Sleep_Per_File)
 
         outFile.write(response.raw.read())
+
+        if i > 4:
+            break
 
         del response
 
