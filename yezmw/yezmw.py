@@ -79,7 +79,7 @@ def decodeM3u8File(hlsVideoUrl):
 def startdownloadVideo(name):
     downloadPath = basePath + "parts/"
     disk.mkdir(downloadPath)
-    downloadFile = open("convert.m3u8","r+")
+    downloadFile = open(basePath+"convert.m3u8","r+")
     line = downloadFile.readline()
 
 
