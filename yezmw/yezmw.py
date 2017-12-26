@@ -83,12 +83,14 @@ def decodeM3u8File(title,hlsVideoUrl):
     # print(hlsFile.name)
 
     line = hlsFile.readline()
+    lineCount = 0
     while(line!= ''):
         if "#" in line:
             pass
         else:
             line = baseURL + line
             outFile.write(line)
+            lineCount = lineCount + 1
         line = hlsFile.readline()
 
 
@@ -96,8 +98,9 @@ def decodeM3u8File(title,hlsVideoUrl):
     print("decodeM3u8File end")
     hlsFile.close()
     outFile.close()
+    return lineCount
 
-def startdownloadVideo(name):
+def startdownloadVideo(name,linecount):
     folderPath = basePath + name +"/"
     downloadPath = folderPath + "parts/"
     disk.mkdir(downloadPath)
@@ -123,7 +126,7 @@ def startdownloadVideo(name):
     while(line!= ''):
         partUrl = line
         recordNum =  recordNum + 1
-        print("正在下载片段 " + str(recordNum))
+        print("正在下载片段 " + str(recordNum) + " "+str(recordNum/linecount*100) + "%")
 
         response = requests.get(partUrl, stream=True)
 
