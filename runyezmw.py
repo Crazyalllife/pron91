@@ -10,7 +10,7 @@ print("解析页面内容")
 result = yezmw.handleVideoContent(url)
 #解析链接
 print("解析链接")
-yezmw.decodeM3u8File(result["hlsViedoUrl"])
+yezmw.decodeM3u8File(result["title"],result["hlsViedoUrl"])
 #下载文件
 print("下载文件")
 yezmw.startdownloadVideo(result["title"])
