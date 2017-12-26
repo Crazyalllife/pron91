@@ -126,7 +126,7 @@ def startdownloadVideo(name,linecount):
     while(line!= ''):
         partUrl = line
         recordNum =  recordNum + 1
-        print("正在下载片段 " + str(recordNum) + " "+str(recordNum/linecount*100) + "%")
+        print("正在下载片段 " + str(recordNum) + " "+str(format(recordNum/linecount*100,".2f")) + "%")
 
         response = requests.get(partUrl, stream=True)
 
