@@ -50,10 +50,6 @@ def fetchContent(url):
 
     request_headers = fakerHeader.buildFakeHeader()
     print(url)
-    # request = urllib.request.Request(url,data=None,headers=request_headers)
-    # response = urllib.request.urlopen(request)
-
-    # rawHtml = response.read()
 
     response = requests.get(url=url , headers = request_headers, verify=False, timeout = 10)
     return response.text
@@ -289,3 +285,24 @@ def isPageNaviHasNext(rawHtml):
     return hasNext
 
 
+def downloadFile(url , title,type,downloadPath):
+
+    chunk_size = 512
+    downloadPath = downloadPath + title + type
+    outFile = open(downloadPath,"wb+")
+    fakeHeader=FakeHeader()
+    request_headers = fakeHeader.buildFakeHeader()
+    response = requests.get(url, stream=True,timeout=5,headers = request_headers)
+
+    print(response.status_code)
+    print(url)
+    print(response.headers)
+
+    with open(downloadPath, 'wb') as out_file:
+        shutil.copyfileobj(response.raw, out_file)
+    del response
+
+    # for chunk in response.iter_content(chunk_size):
+    #     outFile.write(chunk)
+    # del response
+    pass
