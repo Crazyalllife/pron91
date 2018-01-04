@@ -207,3 +207,7 @@ def startdownloadVideo(referUrl,name,linecount):
 # url = "http://video1.feimanzb.com:8091/20171215/RKI-413-C/550kb/hls/gUYZa0Kw2426000.ts"
 # index = url.rfind(".")
 # print(url[index:])
+url="https://www.avbyebye.com"
+url="http://www.allitebooks.com/powershell-for-sql-server-essentials/"
+content = httputil.fetchContent(url)
+print(content)

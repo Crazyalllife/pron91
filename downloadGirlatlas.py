@@ -52,15 +52,11 @@ def main():
 
         print('---------------相册下载完成')
         time.sleep(SLEEP_per_Album)
-        foldersize = get_size(httputil.BaseDownloadPath)
-        foldersize = convertToGb(foldersize)
+        # foldersize = get_size(httputil.BaseDownloadPath)
+        # foldersize = convertToGb(foldersize)
 
-        if foldersize > MAX_DOWNLOAD_SIZE:
-            running = False
-        else:
-
-            db.updateAlbumDownloadStatus(1,albumID)
-            album = db.getAlbumToDownload()
+        db.updateAlbumDownloadStatus(1,albumID)
+        album = db.getAlbumToDownload()
     print()
 
 def generateLogPath():
