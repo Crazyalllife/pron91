@@ -90,7 +90,9 @@ def main():
                 running = False
         else:
             #文件miss
+            print('文件miss')
             db.updatePronDownloadStatus(viewkey,2)
+            targetPron = db.getPronToDownload()
 
         time.sleep(SLEEP_per_Video)
 
