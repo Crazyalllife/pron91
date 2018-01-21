@@ -55,6 +55,27 @@ def fetchContent(url):
     return response.text
 
 
+def fetchIsVideoMiss(rawHtml):
+    soup = BeautifulSoup(rawHtml , "html.parser")
+
+    container = soup.find_all("div",id="container")
+
+
+    checkStr = str(container)
+
+    finalString = '视频不存在'
+
+    result = False ;
+
+    if finalString in checkStr:
+        result = True
+    else:
+        result = False
+    return result;
+
+
+
+
 def fetchActualMessage(rawHtml):
 
     """

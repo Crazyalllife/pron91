@@ -31,6 +31,7 @@ MAX_DOWNLOAD_SIZE = 20
 
 def main():
     pron = Pron91();
+
     db = Databasemanager()
 
     running = True
@@ -40,44 +41,56 @@ def main():
         url = targetPron['targetURL']
         viewkey = targetPron['viewkey']
 
-        result = pron.fetch(url)
-        downloadURL = result['downloadURL']
-        title = result['title']
-        type = result['type']
+        urll = httputil.convertURL(url)
 
-        pronData = {
-            "viewkey":viewkey,
-            "originalURL":url,
-            "title":title,
-            "type":type,
-            "actDownloadURL":downloadURL,
-            "downloadStatus":"0"
-        }
-        db.insertOrUpdatePron(pronData)
+        contentCheck = httputil.fetchContent(urll)
 
-        print(result)
+        isMiss = httputil.fetchIsVideoMiss(contentCheck)
 
-        file = title + "." + type
+        if isMiss == False :
 
 
-        try:
+            result = pron.fetch(url)
+            downloadURL = result['downloadURL']
+            title = result['title']
+            type = result['type']
 
-            isHaveSpace = httputil.downloadVideo(downloadURL,file)
+            pronData = {
+                "viewkey":viewkey,
+                "originalURL":url,
+                "title":title,
+                "type":type,
+                "actDownloadURL":downloadURL,
+                "downloadStatus":"0"
+            }
+            db.insertOrUpdatePron(pronData)
 
-            print("isHaveSpace" + str(isHaveSpace))
-            if isHaveSpace:
-                db.updatePronDownloadStatus(viewkey,1)
-                targetPron = db.getPronToDownload()
-            else:
+            print(result)
+
+            file = title + "." + type
+
+
+            try:
+
+                isHaveSpace = httputil.downloadVideo(downloadURL,file)
+
+                print("isHaveSpace" + str(isHaveSpace))
+                if isHaveSpace:
+                    db.updatePronDownloadStatus(viewkey,1)
+                    targetPron = db.getPronToDownload()
+                else:
+                    running = False
+            except:
+                db.updatePronDownloadStatus(viewkey,0)
+
+            foldersize = get_size(httputil.BaseDownloadPath)
+            foldersize = convertToGb(foldersize)
+
+            if foldersize > MAX_DOWNLOAD_SIZE:
                 running = False
-        except:
-            db.updatePronDownloadStatus(viewkey,0)
-
-        foldersize = get_size(httputil.BaseDownloadPath)
-        foldersize = convertToGb(foldersize)
-
-        if foldersize > MAX_DOWNLOAD_SIZE:
-            running = False
+        else:
+            #文件miss
+            db.updatePronDownloadStatus(viewkey,2)
 
         time.sleep(SLEEP_per_Video)
 
