@@ -111,10 +111,36 @@ class Databasemanager:
         if size > 0:
 
             for row in rows:
+                _id = row[0]
                 targetURL = row[5]
                 viewkey = row[1]
 
+
             result = {
+                "_id":_id,
+                "viewkey":viewkey,
+                "targetURL":targetURL
+            }
+        else:
+            result = None
+        return result
+
+    def getLastPron(self):
+        cursor = self.c.execute("SELECT * from Pron WHERE downloadStatus=0  ORDER BY _id DESC limit 1")
+        rows = cursor.fetchall()
+
+        size = len(rows)
+
+        if size > 0:
+
+            for row in rows:
+                _id = row[0]
+                targetURL = row[5]
+                viewkey = row[1]
+
+
+            result = {
+                "_id":_id,
                 "viewkey":viewkey,
                 "targetURL":targetURL
             }

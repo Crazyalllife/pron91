@@ -36,10 +36,21 @@ def main():
 
     running = True
     targetPron = db.getPronToDownload()
+    lastPron = db.getLastPron()
+
+    if lastPron != None:
+        lastPronId = lastPron['_id']
     while (targetPron != None and running):
 
+        _id = targetPron['_id']
         url = targetPron['targetURL']
         viewkey = targetPron['viewkey']
+
+        progress = int(_id)/int(lastPronId)
+
+        print("progress is " + str(progress))
+
+
 
         urll = httputil.convertURL(url)
 
